@@ -7,25 +7,31 @@ app.use((req, res, next) => {
     next();
 });
 
-// Search
-app.get('/anime/gogoanime/:query', async (req, res) => {
-    const gogoanime = new ANIME.Gogoanime();
-    const data = await gogoanime.search(req.params.query);
-    res.json(data);
+// Search - Zoro
+app.get('/anime/zoro/:query', async (req, res) => {
+    try {
+        const zoro = new ANIME.Zoro();
+        const data = await zoro.search(req.params.query);
+        res.json(data);
+    } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
-// Info
-app.get('/anime/gogoanime/info/:id', async (req, res) => {
-    const gogoanime = new ANIME.Gogoanime();
-    const data = await gogoanime.fetchAnimeInfo(req.params.id);
-    res.json(data);
+// Info - Zoro
+app.get('/anime/zoro/info/:id', async (req, res) => {
+    try {
+        const zoro = new ANIME.Zoro();
+        const data = await zoro.fetchAnimeInfo(req.params.id);
+        res.json(data);
+    } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
-// Watch
-app.get('/anime/gogoanime/watch/:episodeId', async (req, res) => {
-    const gogoanime = new ANIME.Gogoanime();
-    const data = await gogoanime.fetchEpisodeSources(req.params.episodeId);
-    res.json(data);
+// Watch - Zoro
+app.get('/anime/zoro/watch/:episodeId', async (req, res) => {
+    try {
+        const zoro = new ANIME.Zoro();
+        const data = await zoro.fetchEpisodeSources(req.params.episodeId);
+        res.json(data);
+    } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
 const PORT = process.env.PORT || 7860;
